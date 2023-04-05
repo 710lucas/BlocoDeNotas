@@ -36,7 +36,7 @@ public class BlocoDeNotas implements Serializable{
         for(int i = 0; i<anotacoes.size(); i++){
             Anotacao anotacaoAtual = anotacoes.get(i);
 
-            if(anotacaoAtual.getTexto().contains(textoParaBuscar) && !anotacaoAtual.getApagada()){
+            if(anotacaoAtual.temTexto(textoParaBuscar) && !anotacaoAtual.getApagada()){
                 System.out.println(anotacaoAtual.getNumero()+" "+ anotacaoAtual.getTexto()+" "+anotacaoAtual.getData());
             }
         }
