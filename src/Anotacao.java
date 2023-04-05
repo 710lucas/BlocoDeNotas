@@ -42,6 +42,10 @@ public class Anotacao implements Serializable {
     public Date getData(){
         return data;
     }
+    
+    public boolean temTexto(String texto){
+        return this.texto.contains(texto) ? true : false;
+    }
 
     public void setNumero(int numeroDaAnotacao){
         numero = numeroDaAnotacao;
