@@ -57,4 +57,6 @@ public class Anotacao implements Serializable {
         numero = numeroDaAnotacao;
     }
 
+    public void setTexto(String texto){ this.texto = texto;}
+
 }
