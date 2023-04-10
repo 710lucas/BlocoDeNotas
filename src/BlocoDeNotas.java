@@ -18,17 +18,21 @@ public class BlocoDeNotas implements Serializable{
     public void editar(int numero){
         Anotacao anotacaoParaEditar = anotacoes.get(numero);
 
-        if(anotacaoParaEditar.getApagada() == true) {
-            System.out.println("Não é possível editar uma anotação apagada");
-            return;
+        try {
+            anotacaoParaEditar.editar();
+        } catch (AnotacaoException e) {
+            System.err.println(e.getMessage());
         }
-
-        anotacaoParaEditar.editar();
     }
 
     public void apagar(int numero){
         Anotacao anotacaoParaApagar = anotacoes.get(numero);
-        anotacaoParaApagar.apagar();
+
+        try {
+            anotacaoParaApagar.apagar();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());;
+        }
     }
 
     public void buscar(String textoParaBuscar){

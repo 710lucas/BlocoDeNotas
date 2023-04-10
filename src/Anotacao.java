@@ -16,14 +16,20 @@ public class Anotacao implements Serializable {
         data = new Date();
     }
 
-    public void editar(){
+    public void editar() throws AnotacaoException {
+        if(apagada){
+            throw new AnotacaoException("Não é possivel editar anotações apagadas");
+        }
         System.out.print("O texto que você irá editar é este: ");
         System.out.println(texto);
         System.out.println("Digite o texto que você deseja: ");
         texto = sc.nextLine();
     }
 
-    public void apagar(){
+    public void apagar() throws Exception {
+        if(apagada){
+            throw   new Exception("Não é possível apagar uma anotação que ja foi apagada");
+        }
         apagada = true;
     }
 
