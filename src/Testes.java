@@ -1,42 +1,104 @@
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.*;
+
+import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Testes {
 
-    public static void main(String[] args){
 
-        System.out.println("inicio dos testes");
-        BlocoDeNotas bloco = new BlocoDeNotas();
+    BlocoDeNotas bloco = new BlocoDeNotas();
 
-        final String stringTeste = "teste";
+    static final String stringTeste = "teste";
+    Anotacao anot = new Anotacao(Testes.stringTeste);
 
-        Anotacao anot = new Anotacao(stringTeste);
+    @BeforeEach
+    public void init(){
+        anot = new Anotacao(stringTeste);
+    }
 
+    @Test
+    public void testeString() {
         assertEquals("teste", anot.getTexto());
 
-        assertEquals(false, anot.getApagada());
+        assertFalse(anot.getApagada());
+        anot.setTexto("teste2");
+        assertEquals("teste2", anot.getTexto());
+    }
 
+    @Test
+    public void testeNumero() {
         anot.setNumero(123);
-
         assertEquals(123, anot.getNumero());
+    }
 
+    @Test
+    public void testeApagar() {
         try {
             anot.apagar();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        assertTrue(anot.getApagada());
+    }
 
-        assertEquals(true, anot.getApagada());
 
+    @Test
+    public void testeTemTexto() {
 
         anot.setTexto("teste2");
-        assertEquals("teste2", anot.getTexto());
-        assertEquals(true, anot.temTexto("2"));
 
-        assertEquals(false, anot.temTexto("Five Nights at freddy's"));
+        assertTrue(anot.temTexto("2"));
 
-        System.out.println("fim dos testes");
+        assertFalse(anot.temTexto("Five Nights at freddy's"));
+    }
 
+    @Test
+    public void testeBloco(){
+        bloco.adicionar(anot);
+        assertTrue(bloco.getAnotacoes().contains(anot));
+        Anotacao anot2 = new Anotacao("Teste123");
+        assertFalse(bloco.getAnotacoes().contains(anot2));
+        Anotacao anot3 = new Anotacao(stringTeste);
+        assertFalse(bloco.getAnotacoes().contains(anot3));
+    }
+
+    @Test
+    public void testeEditar(){
+        BlocoDeNotas novoBloco = new BlocoDeNotas();
+        novoBloco.adicionar(anot);
+        anot.setNumero(novoBloco.getAnotacoes().indexOf(anot));
+
+        anot.setTexto("teste2");
+        assertEquals(anot.getTexto(), novoBloco.getAnotacoes().get(anot.getNumero()).getTexto());
+
+        novoBloco.getAnotacoes().get(anot.getNumero()).setTexto("teste3");
+        assertEquals(anot.getTexto(), novoBloco.getAnotacoes().get(anot.getNumero()).getTexto());
 
     }
+
+    @Test
+    public void testeBlocoApagar() throws Exception {
+        BlocoDeNotas novoBloco = new BlocoDeNotas();
+        novoBloco.adicionar(anot);
+        anot.setNumero(novoBloco.getAnotacoes().indexOf(anot));
+
+        novoBloco.getAnotacoes().get(anot.getNumero()).apagar();
+        assertTrue(anot.getApagada());
+    }
+
+    @Test
+    public void testeBlocoNumero(){
+        BlocoDeNotas novoBloco = new BlocoDeNotas();
+        novoBloco.adicionar(anot);
+        anot.setNumero(novoBloco.getAnotacoes().indexOf(anot));
+        assertEquals(anot.getNumero(), novoBloco.getAnotacoes().indexOf(anot));
+    }
+
+
+
+
 
 }

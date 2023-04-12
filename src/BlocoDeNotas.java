@@ -56,6 +56,10 @@ public class BlocoDeNotas implements Serializable{
         }
     }
 
+    public ArrayList<Anotacao> getAnotacoes(){
+        return anotacoes;
+    }
+
     //[anotacao1, anotacao2, anotacao3, anotacao4]
     //    0          1           2         3
 }
